@@ -1,7 +1,7 @@
 {
-  "name": "checkout-console-server",
+  "name": "shoelace-learn",
   "version": "1.0.0",
-  "description": "Checkout Command Center Console - Server",
+  "description": "",
   "main": "index.ts",
   "scripts": {
     "build": "webpack",

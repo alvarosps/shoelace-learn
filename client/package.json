@@ -1,8 +1,8 @@
 {
-  "name": "checkout-console-client",
+  "name": "shoelace-learn-client",
   "version": "1.0.0",
-  "description": "Checkout Command Center Console - Client",
   "main": "index.js",
+  "description": "",
   "scripts": {
     "webpack": "webpack",
     "start": "webpack serve",
