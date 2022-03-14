@@ -3,11 +3,16 @@ import { Request, Response } from 'express'
 import cors from 'cors'
 import db from './models/index'
 import dbConfig from './config/db.config'
+import middlewares from './middlewares'
+import authController from './controllers/auth.controller'
+import userController from './controllers/user.controller'
 
 const Role = db.role;
 
+const dbConnectionString = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
+console.log(dbConnectionString)
 db.mongoose
-    .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    .connect(dbConnectionString, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -26,11 +31,46 @@ const corsOptions = {
     origin: "http://localhost:8081"
 }
 
+const PORT = process.env.PORT || 8080;
+
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-const PORT = process.env.PORT || 8080;
+app.use((req: Request, res: Response, next: any) => {
+    res.header(
+        'Access-Control-Allow-Headers',
+        'x-access-token, Origin, Content-Type, Accept'
+    )
+    next()
+})
+
+app.post(
+    "/api/auth/signup",
+    [
+        middlewares.verifySignUp.checkDuplicateUsernameOrEmail,
+        middlewares.verifySignUp.checkRolesExisted
+    ],
+    authController.signup
+)
+
+app.post("/api/auth/signin", authController.signin)
+
+app.get('/api/test/all', userController.allAccess)
+
+app.get('/api/test/user', [middlewares.authJwt.verifyToken, userController.userBoard])
+
+app.get(
+    '/api/test/mod',
+    [middlewares.authJwt.verifyToken, middlewares.authJwt.isModerator],
+    userController.moderatorBoard
+)
+
+app.get(
+    '/api/test/admin',
+    [middlewares.authJwt.verifyToken, middlewares.authJwt.isAdmin],
+    userController.adminBoard
+)
 
 app.get('/', (req: Request, res: Response) => {
     res.send({

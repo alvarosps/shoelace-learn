@@ -1,13 +1,14 @@
 import { Document } from "mongoose"
 
 export interface IRoles extends Document {
-    type: String,
-    ref: String
+    name: any
+    type: string,
+    ref: string
 }
 
 export interface IUser extends Document {
-    username: String,
-    email: String,
-    password: String,
+    username: string,
+    email: string,
+    password: string,
     roles: Array<IRoles>
 }
