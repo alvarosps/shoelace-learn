@@ -44,7 +44,7 @@ const signup =  (req: Request, res: Response) => {
         } else {
             Role.findOne({ name: 'user' }, (err: any, role: IRole) => {
                 if (err) {
-                    res.status(500).send({ message: err })
+                    res.status(500).send({ message : err })
                     return
                 }
                 user.roles = [role._id]

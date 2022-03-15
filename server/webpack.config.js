@@ -23,7 +23,7 @@ module.exports = {
     plugins: [
         new WebpackShellPluginNext({
             onBuildEnd: {
-                scripts: ['npm run run:dev'],
+                scripts: ['npm run start:dev'],
                 blocking: false,
                 parallel: true,
             }

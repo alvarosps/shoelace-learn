@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "test": "jest",
-    "run:dev": "nodemon build/index.js"
+    "start:dev": "nodemon build/index.js"
   },
   "author": "Alvaro Silva",
   "license": "ISC",
