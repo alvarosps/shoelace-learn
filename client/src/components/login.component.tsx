@@ -36,7 +36,7 @@ const Login: React.FC<Props> = ({ history }) => {
 
         authService.login(username, password).then(
             () => {
-                history.push("/profile");
+                history.push("/dashboard");
                 window.location.reload();
             },
             error => {

@@ -67,6 +67,8 @@ app.put('/api/schools/:id', [middlewares.authJwt.verifyToken, schoolController.u
 
 app.delete('/api/schools/:id', [middlewares.authJwt.verifyToken, schoolController.deleteSchool])
 
+app.post('/api/schools', [middlewares.authJwt.verifyToken, schoolController.addSchool])
+
 app.get('/', (req: Request, res: Response) => {
     res.send({
         message: 'Server running'

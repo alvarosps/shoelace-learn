@@ -4,15 +4,14 @@ import { model, Schema } from 'mongoose'
 const schoolSchema: Schema = new Schema(
     {
         name: {
-            type: String,
-            required: true
+            type: String
         },
         address: {
             type: String
         },
         user: {
-            type: String,
-            required: true
+            type: Schema.Types.ObjectId,
+            ref: "User"
         }
     }
 )

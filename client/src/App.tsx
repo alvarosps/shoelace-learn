@@ -12,6 +12,9 @@ import BoardUser from "./components/boardUser.component";
 import EventBus from "./common/EventBus";
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
+
+  console.log('currentUser', currentUser)
+
   useEffect(() => {
     const user = authService.getCurrentUser();
     if (user) {
@@ -22,10 +25,12 @@ const App: React.FC = () => {
       EventBus.remove("logout", logOut);
     };
   }, []);
+
   const logOut = () => {
     authService.logout();
     setCurrentUser(undefined);
   };
+
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -54,7 +59,7 @@ const App: React.FC = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
+              <a href="/" className="nav-link" onClick={logOut}>
                 LogOut
               </a>
             </li>
@@ -79,7 +84,9 @@ const App: React.FC = () => {
           <Route exact path={["/", "/home"]} component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route path="/dashboard" component={BoardUser} />
+          <Route path="/dashboard">
+            <BoardUser user={currentUser as IUser} />
+          </Route>
         </Switch>
       </div>
     </div>
