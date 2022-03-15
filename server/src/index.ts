@@ -6,6 +6,7 @@ import dbConfig from './config/db.config'
 import middlewares from './middlewares'
 import authController from './controllers/auth.controller'
 import userController from './controllers/user.controller'
+import schoolController from './controllers/school.controller'
 
 const Role = db.role;
 
@@ -54,23 +55,17 @@ app.post(
     authController.signup
 )
 
-app.post("/api/auth/signin", authController.signin)
+app.post("/api/auth/login", authController.signin)
 
 app.get('/api/test/all', userController.allAccess)
 
 app.get('/api/test/user', [middlewares.authJwt.verifyToken, userController.userBoard])
 
-app.get(
-    '/api/test/mod',
-    [middlewares.authJwt.verifyToken, middlewares.authJwt.isModerator],
-    userController.moderatorBoard
-)
+app.get('/api/schools', [middlewares.authJwt.verifyToken, schoolController.getSchools])
 
-app.get(
-    '/api/test/admin',
-    [middlewares.authJwt.verifyToken, middlewares.authJwt.isAdmin],
-    userController.adminBoard
-)
+app.put('/api/schools/:id', [middlewares.authJwt.verifyToken, schoolController.updateSchool])
+
+app.delete('/api/schools/:id', [middlewares.authJwt.verifyToken, schoolController.deleteSchool])
 
 app.get('/', (req: Request, res: Response) => {
     res.send({

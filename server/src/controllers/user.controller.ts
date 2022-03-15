@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 const allAccess = (req: Request, res: Response) => {
-    res.status(200).send("Public Content.");
+    res.status(200).send("Welcome to Shoelace Learning, please login to continue.");
   };
 const userBoard = (req: Request, res: Response) => {
   res.status(200).send("User Content.");
