@@ -5,8 +5,11 @@ interface SchoolProps {
     school: ISchool
 }
 
-const SchoolItem: React.FC<SchoolProps> = ({ school }) => {
+type Props = SchoolProps & {
+    deleteSchool: (_id: string) => void
+}
 
+const SchoolItem: React.FC<Props> = ({ school, deleteSchool }) => {
     return (
         <div className="Card">
             <div className="Card--text">
@@ -17,7 +20,10 @@ const SchoolItem: React.FC<SchoolProps> = ({ school }) => {
                 <button>
                     Edit
                 </button>
-                <button className="Card-button__delete">
+                <button
+                    className="Card-button__delete"
+                    onClick={() => deleteSchool(school._id)}
+                >
                     Delete
                 </button>
             </div>

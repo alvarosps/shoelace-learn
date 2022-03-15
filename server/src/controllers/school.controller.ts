@@ -21,13 +21,17 @@ const updateSchool = async (req: Request, res: Response): Promise<void> => {
         const {
             params: { id }
         } = req
+        
+        const { userId } = req.query
 
         const updatedSchool: ISchool | null = await School.findByIdAndUpdate(
             { _id: id },
             req.query
         )
 
-        const allSchools: ISchool[] = await School.find()
+        const allSchools: ISchool[] = await School.find({
+            'user': userId
+        })
 
         res.status(200).json({
             message: 'School updated',
@@ -41,9 +45,13 @@ const updateSchool = async (req: Request, res: Response): Promise<void> => {
 
 const deleteSchool = async (req: Request, res: Response) => {
     try {
+        const { userId } = req.query
+
         const deletedSchool: ISchool | null = await School.findByIdAndRemove(req.params.id)
 
-        const allSchools: ISchool[] = await School.find()
+        const allSchools: ISchool[] = await School.find({
+            'user': userId
+        })
 
         res.status(200).json({
             message: 'School Deleted',

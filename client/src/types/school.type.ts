@@ -3,4 +3,5 @@ export default interface ISchool {
     name: string,
     address: string,
     user: string
+    _id: string
 }

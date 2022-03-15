@@ -24,7 +24,14 @@ const BoardUser: React.FC<BoardUserProps> = ({ user }) => {
         )
     }, [])
 
-    
+    const handleDeleteSchool = (_id: string) => {
+        schoolService.deleteSchool(_id, user)
+            .then(({ data }) => {
+                console.log('delete data', data)
+                setSchools(data.schools)
+            })
+            .catch((err: any) => setError(err.toString()))
+    }
 
     return (
         <div className='container'>
@@ -32,7 +39,11 @@ const BoardUser: React.FC<BoardUserProps> = ({ user }) => {
                 <h3>{error}</h3>
             </header>)}
             {schools && schools.length > 0 && schools.map((school, index) => (
-                <SchoolItem school={school} key={index} />
+                <SchoolItem
+                    school={school}
+                    key={index}
+                    deleteSchool={handleDeleteSchool}
+                />
             ))}
         </div>
     )
