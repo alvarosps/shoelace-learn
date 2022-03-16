@@ -15,7 +15,9 @@ module.exports = {
     devServer: {
         static: {
             directory: path.join(__dirname, 'public')
-        }
+        },
+        historyApiFallback: true,
+        hot: true
     },
     module: {
         rules: [

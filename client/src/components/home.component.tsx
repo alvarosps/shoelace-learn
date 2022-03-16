@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import userService from '../services/user.service'
+import IUser from '../types/user.type'
 
-const Home: React.FC = () => {
+interface Props {
+    user: IUser | undefined
+}
+
+const Home: React.FC<Props> = ({ user }) => {
     const [content, setContent] = useState('')
+    
+    useEffect(() => {
+        console.log('user', user)
+        if (!user) {
+            userService.getPublicContent()
+                .then((response) => {
+                    setContent(response.data)
+                },
+                (error) => {
+                    const _content = (error.response && error.response.data) || error.message || error.toString()
+                    setContent(_content)
+                }
+            )
+        } else {
+            setContent(`Welcome, ${user.username}`)
+        }        
+    }, [])
 
     useEffect(() => {
-        userService.getPublicContent()
-            .then((response) => {
-                setContent(response.data)
-            },
-            (error) => {
-                const _content = (error.response && error.response.data) || error.message || error.toString()
-                setContent(_content)
-            }
-        )
-    }, [])
+        if (user) setContent(`Welcome, ${user.username}`)
+    }, [user])
 
     return (
         <div className='container'>

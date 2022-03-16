@@ -81,7 +81,9 @@ const App: React.FC = () => {
       </nav>
       <div className="container mt-3">
         <Switch>
-          <Route exact path={["/", "/home"]} component={Home} />
+          <Route exact path={["/", "/home"]}>
+            <Home user={currentUser} />
+          </Route>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route path="/dashboard">

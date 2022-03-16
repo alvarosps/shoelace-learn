@@ -27,4 +27,86 @@ label {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
-  
+
+.Card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #343a40;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #333333;
+}
+
+.Card--text h1 {
+    color: #dfdfdf;
+}
+
+.Card--text {
+    text-align: left;
+    font-weight: bold;
+    color: #bbb;
+}
+
+.Card--button button {
+    background: #f5f6f7;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.Card--button__delete {
+    border: 1px solid #ca0000;
+    color: #ca0000;
+}
+
+.Card--button__done {
+    border: 1px solid #00aa69;
+    color: #00aa69;
+    margin-right: 1rem;
+}
+
+.Form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #343a40;
+    margin-bottom: 1rem;
+}
+
+.form label {
+    color: #bbb;
+}
+
+.Form > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Form input {
+    background: #f5f6f7;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ff9900;
+    border-radius: 10px;
+    display: block;
+    margin: 0.3rem 1rem 0 0;
+}
+
+.Form button {
+    background: #008702;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+}
+
+.line-through {
+    text-decoration: line-through;
+    color: #777 !important;
+}
+
+.hide-button {
+    display: none;
+}
