@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ISchool from '../types/school.type'
 import IUser from '../types/user.type'
 import authHeader from './auth-header'
 
@@ -26,7 +27,29 @@ const deleteSchool = async (_id: string, user: IUser) => {
     }
 }
 
+const updateSchool = async (school: ISchool, user: IUser) => {
+    try {
+        const schoolUpdate: Pick<ISchool, "name"| "address"> = {
+            name: school.name,
+            address: school.address
+        }
+        console.log('new data', schoolUpdate)
+
+        const updatedSchool = await axios.request({
+            method: 'PUT',
+            url: `${API_URL}/${school._id}?userId=${user.id}`,
+            params: schoolUpdate,
+            headers: authHeader()
+        })
+
+        return updatedSchool
+    } catch (error: any) {
+        throw new Error(error)
+    } 
+}
+
 export default {
     getSchools,
-    deleteSchool
+    deleteSchool,
+    updateSchool
 }

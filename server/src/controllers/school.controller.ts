@@ -21,7 +21,7 @@ const updateSchool = async (req: Request, res: Response): Promise<void> => {
         const {
             params: { id }
         } = req
-        
+
         const { userId } = req.query
 
         const updatedSchool: ISchool | null = await School.findByIdAndUpdate(

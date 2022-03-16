@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import schoolService from '../services/school.service'
+import ISchool from '../types/school.type'
 import IUser from '../types/user.type'
+import EditSchool from './editSchool.component'
 import SchoolItem from './schooItem.component'
 
 interface BoardUserProps {
@@ -9,13 +11,13 @@ interface BoardUserProps {
 
 const BoardUser: React.FC<BoardUserProps> = ({ user }) => {
     const [error, setError] = useState(null)
-    const [schools, setSchools] = useState([])
+    const [schools, setSchools] = useState<ISchool[]>([])
 
     useEffect(() => {
         schoolService.getSchools(user).then(
             (response: any) => {
-                console.log(response)
-                setSchools(response.data.schools)
+                const schools = response.data.schools
+                setSchools(schools)
             },
             (error) => {
                 const _error = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
@@ -33,6 +35,10 @@ const BoardUser: React.FC<BoardUserProps> = ({ user }) => {
             .catch((err: any) => setError(err.toString()))
     }
 
+    const getUpdatedSchoolList = (schoolList: ISchool[]) => {
+        setSchools(schoolList)
+    }
+
     return (
         <div className='container'>
             {error && (<header className='jumbotron'>
@@ -40,9 +46,11 @@ const BoardUser: React.FC<BoardUserProps> = ({ user }) => {
             </header>)}
             {schools && schools.length > 0 && schools.map((school, index) => (
                 <SchoolItem
-                    school={school}
                     key={index}
+                    school={school}
                     deleteSchool={handleDeleteSchool}
+                    user={user}
+                    updateSchoolList={getUpdatedSchoolList}
                 />
             ))}
         </div>

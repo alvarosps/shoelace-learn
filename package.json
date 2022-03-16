@@ -6,7 +6,7 @@
     "client-install": "cd client && npm install",
     "client:dev": "cd client && npm start",
     "server-install": "cd server && npm install",
-    "server:dev": "cd server && npm run start:dev",
+    "server:dev": "cd server && npm run build",
     "install-all-deps": "concurrently \"npm run server-install\" \"npm run client-install\"",
     "setup": "npm install && npm run install-all-deps",
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\""
